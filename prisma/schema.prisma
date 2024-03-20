@@ -17,3 +17,13 @@ model User {
   id       String @id @map("_id")
   username String
 }
+
+model Volunteer {
+  id           String  @id @default(nanoid()) @map("_id")
+  name         String
+  where        String
+  when         String
+  description  String
+  neededPeople String
+  isDone       Boolean @default(false)
+}
