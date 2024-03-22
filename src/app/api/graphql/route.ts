@@ -1,9 +1,8 @@
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { ApolloServer } from "@apollo/server";
-import { gql } from "graphql-tag";
 import { PrismaClient } from "@prisma/client";
 import { resolvers } from "@/graphql/resolvers";
-import { volunteerTypeDefs } from "@/graphql/schemas/volunteer-schema";
+import { typeDefs } from "@/graphql/schemas"
 
 const prisma = new PrismaClient();
 
@@ -25,7 +24,7 @@ const prisma = new PrismaClient();
 
 const server = new ApolloServer({
   resolvers: resolvers,
-  typeDefs: volunteerTypeDefs,
+  typeDefs
 });
 
 const handler = startServerAndCreateNextHandler(server);

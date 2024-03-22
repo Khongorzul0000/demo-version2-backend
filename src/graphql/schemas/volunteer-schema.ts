@@ -9,7 +9,10 @@ export const volunteerTypeDefs = gql`
     description: String!
     neededPeople: String!
     isDone: Boolean!
+    leader: User
+    attendees: [User]
   }
+
   input VolunteerCreateInput {
     name: String!
     where: String!
@@ -17,23 +20,26 @@ export const volunteerTypeDefs = gql`
     description: String!
     neededPeople: String!
     isDone: Boolean!
+    leaderId: String!
   }
-  # type VolunteerUpdateInput {
-  #   name: String!
-  #   where: String!
-  #   when: String!
-  #   description: String!
-  #   neededPoeple: String!
-  #   isDone: Boolean!
-  #   id: ID!
-  # }
+
+  input VolunteerUpdateInput {
+    name: String!
+    where: String!
+    when: String!
+    description: String!
+    neededPeople: String!
+    isDone: Boolean!
+  }
+
   type Query {
     getVolunteer(id: ID): Volunteer
     getVolunteers: [Volunteer]
   }
+
   type Mutation {
     createVolunteer(input: VolunteerCreateInput!): Volunteer
     deleteVolunteer(id: ID): Volunteer
-    # updateVolunteer(input: VolunteerUpdateInput!, id: ID): Volunteer
+    updateVolunteer(input: VolunteerUpdateInput!, id: ID): Volunteer
   }
 `;
