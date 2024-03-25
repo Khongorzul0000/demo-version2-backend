@@ -8,6 +8,7 @@ export const volunteerTypeDefs = gql`
     when: String!
     description: String!
     neededPeople: String!
+    category: String!
     isDone: Boolean!
     leader: User
     attendees: [User]
@@ -17,6 +18,7 @@ export const volunteerTypeDefs = gql`
     name: String!
     where: String!
     when: String!
+    category: String!
     description: String!
     neededPeople: String!
     isDone: Boolean!

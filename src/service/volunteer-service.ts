@@ -4,8 +4,24 @@ import { GraphQLError } from "graphql";
 
 export const getVolunteers = async () => {
   try {
-    const result = prisma.volunteer.findMany({ include: { leader: true } });
-    return result;
+    // const result = prisma.volunteer.findMany({ include: { leader: true } });
+    // return result;
+    const results = await prisma.volunteer.findMany({ include: { leader: true } });
+
+    // Iterate over the results and check if leader is null
+    const modifiedResults = results.map((volunteer) => {
+      if (volunteer.leader === null) {
+        // Customize response if leader is null
+        return {
+          ...volunteer,
+          leader: "No leader specified",
+        };
+      } else {
+        return volunteer;
+      }
+    });
+
+    return modifiedResults;
   } catch (error) {
     console.error(error);
     throw new GraphQLError("error fetching");
@@ -40,6 +56,7 @@ export const createVolunteer = async (input: Prisma.VolunteerCreateInput & { lea
       data,
     });
     return result;
+    // if(result.)
   } catch (error) {
     console.error(error);
     throw new GraphQLError("error creating");

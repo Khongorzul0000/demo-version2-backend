@@ -14,6 +14,11 @@ export const userTypeDefs = gql`
     email: String!
   }
 
+  input UserSignInInput {
+    username: String!
+    password: String
+  }
+
   type Query {
     getUser(id: ID): User
     getUsers: [User]
@@ -21,5 +26,6 @@ export const userTypeDefs = gql`
 
   type Mutation {
     createUser(input: UserCreateInput!): User
+    singinUser(input: UserSignInInput!): User
   }
 `;
