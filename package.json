@@ -11,6 +11,8 @@
   "dependencies": {
     "@apollo/server": "^4.10.1",
     "@as-integrations/next": "^3.0.0",
+    "@auth0/nextjs-auth0": "^3.5.0",
+    "@clerk/clerk-expo": "^0.20.10",
     "@prisma/client": "^5.11.0",
     "bcrypt": "^5.1.1",
     "graphql": "^16.8.1",

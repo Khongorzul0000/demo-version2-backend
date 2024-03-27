@@ -1,5 +1,5 @@
 import { prisma } from "@/utils/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma, VolunteerCategory } from "@prisma/client";
 import { GraphQLError } from "graphql";
 
 export const getVolunteers = async () => {
@@ -38,13 +38,24 @@ export const getVolunteer = async (id: string) => {
   }
 };
 
-export const createVolunteer = async (input: Prisma.VolunteerCreateInput & { leaderId: string }) => {
+export const getVolunteersByCategory = async (category: VolunteerCategory) => {
+  try {
+    const volunteers = await prisma.volunteer.findMany({ where: { category } });
+    return volunteers;
+  } catch (error) {
+    console.error("category:", error);
+    throw new Error("category");
+  }
+};
+
+export const createVolunteer = async (input: Prisma.VolunteerUncheckedCreateInput & { leaderId: string }) => {
   const data: Prisma.VolunteerCreateInput = {
     name: input.name,
     where: input.where,
     when: input.when,
     description: input.description,
     neededPeople: input.neededPeople,
+    category: input.category,
     leader: {
       connect: {
         id: input.leaderId,
@@ -55,6 +66,7 @@ export const createVolunteer = async (input: Prisma.VolunteerCreateInput & { lea
     const result = await prisma.volunteer.create({
       data,
     });
+    console.log(result);
     return result;
     // if(result.)
   } catch (error) {

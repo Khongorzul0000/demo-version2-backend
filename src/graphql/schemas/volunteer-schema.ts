@@ -1,6 +1,12 @@
 import gql from "graphql-tag";
 
 export const volunteerTypeDefs = gql`
+  enum Category {
+    STUDY_HELP
+    CLEANING
+    ANIMAL
+    NATURE
+  }
   type Volunteer {
     id: ID!
     name: String!
@@ -8,7 +14,7 @@ export const volunteerTypeDefs = gql`
     when: String!
     description: String!
     neededPeople: String!
-    category: String!
+    category: Category
     isDone: Boolean!
     leader: User
     attendees: [User]
@@ -18,7 +24,7 @@ export const volunteerTypeDefs = gql`
     name: String!
     where: String!
     when: String!
-    category: String!
+    category: Category!
     description: String!
     neededPeople: String!
     isDone: Boolean!
@@ -32,11 +38,13 @@ export const volunteerTypeDefs = gql`
     description: String!
     neededPeople: String!
     isDone: Boolean!
+    category: Category!
   }
 
   type Query {
     getVolunteer(id: ID): Volunteer
     getVolunteers: [Volunteer]
+    getVolunteersByCategory(category: Category!): Category
   }
 
   type Mutation {
